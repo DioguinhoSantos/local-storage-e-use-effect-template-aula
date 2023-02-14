@@ -3,7 +3,7 @@ import { Form } from "./style";
 
 export default function FormLocal() {
     const [nome, setNome] = useState("");
-    // const [tarefa, setTarefa] = useState("");
+    const [tarefa, setTarefa] = useState("");
     const [listaTarefa, setListaTarefa] = useState([]);
 
     const recebeNome = (e) => {
@@ -18,6 +18,17 @@ export default function FormLocal() {
         localStorage.getItem('nome');
         alert(localStorage.getItem('nome'));
     }
+
+    const recebeTarefa = (e) => {
+        setTarefa(e.target.value);
+        console.log(tarefa);
+    }
+
+    const guardaTarefa = () => {
+        setListaTarefa([...listaTarefa, tarefa]);
+        setTarefa('');
+    }
+        
 
     return (
         <Form>
@@ -34,9 +45,9 @@ export default function FormLocal() {
             <h3>Prática 2</h3>
             <label htmlFor="tarefa">
                 tarefa:
-                <input name="tarefa" id="tarefa" />
+                <input name="tarefa" id="tarefa" value={tarefa} onChange={recebeTarefa}/>
             </label>
-            <button type="button">adicionar Tarefa</button>
+            <button type="button" onClick={guardaTarefa}>adicionar Tarefa</button>
             <ul>
                 {listaTarefa.map((task) => {
                     return <li key={task}>{task}</li>;
