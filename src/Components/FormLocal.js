@@ -24,11 +24,27 @@ export default function FormLocal() {
         console.log(tarefa);
     }
 
-    const guardaTarefa = () => {
+    const adicionaTarefa = () => {
         setListaTarefa([...listaTarefa, tarefa]);
         setTarefa('');
     }
-        
+
+    const guardarTarefas = () => {
+        const tarefaStringed = JSON.stringify(listaTarefa);
+        // console.log(typeof tarefaStringed);
+        // console.log(tarefaStringed);
+        localStorage.setItem('listatarefas', tarefaStringed);
+    }
+
+    // JSON.stringify() transforma um array em string
+    // JSON.parse() transforma uma string em array
+    
+    
+    const acessaTarefas = () => {
+        const tarefasArray = JSON.parse(localStorage.getItem('listatarefas'));
+        // console.log(tarefasArray)
+        setListaTarefa(tarefasArray);
+    }
 
     return (
         <Form>
@@ -47,15 +63,15 @@ export default function FormLocal() {
                 tarefa:
                 <input name="tarefa" id="tarefa" value={tarefa} onChange={recebeTarefa}/>
             </label>
-            <button type="button" onClick={guardaTarefa}>adicionar Tarefa</button>
+            <button type="button" onClick={adicionaTarefa}>adicionar Tarefa</button>
             <ul>
                 {listaTarefa.map((task) => {
                     return <li key={task}>{task}</li>;
                 })}
             </ul>
             <div>
-                <button>Guardar tarefa</button>
-                <button>Acessar tarefa</button>
+                <button onClick={guardarTarefas}>Guardar tarefa</button>
+                <button onClick={acessaTarefas}>Acessar tarefa</button>
             </div>
         </Form>
     );
