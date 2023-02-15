@@ -29,7 +29,7 @@ export default function FormLocal() {
         setTarefa('');
     }
 
-    const guardarTarefas = () => {
+    function guardaTarefas() {
         const tarefaStringed = JSON.stringify(listaTarefa);
         // console.log(typeof tarefaStringed);
         // console.log(tarefaStringed);
@@ -37,13 +37,14 @@ export default function FormLocal() {
     }
 
     // JSON.stringify() transforma um array em string
-    // JSON.parse() transforma uma string em array
+    // JSON.parse() transforma uma string em seu estado inicial
     
-    
+    // local storage recebe no máx 5mb e só recebe strings
+
     const acessaTarefas = () => {
         const tarefasArray = JSON.parse(localStorage.getItem('listatarefas'));
-        // console.log(tarefasArray)
         setListaTarefa(tarefasArray);
+        console.log(tarefasArray)
     }
 
     return (
@@ -70,7 +71,7 @@ export default function FormLocal() {
                 })}
             </ul>
             <div>
-                <button onClick={guardarTarefas}>Guardar tarefa</button>
+                <button onClick={guardaTarefas}>Guardar tarefa</button>
                 <button onClick={acessaTarefas}>Acessar tarefa</button>
             </div>
         </Form>
